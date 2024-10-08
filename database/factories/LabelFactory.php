@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
+use App\Models\Label;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
-class CategoryFactory extends Factory
+class LabelFactory extends Factory
 {
-    protected $model = Category::class;
+    protected $model = Label::class;
 
     public function definition(): array
     {
