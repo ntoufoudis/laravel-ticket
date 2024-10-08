@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Label;
+use App\Models\Ticket;
 
 it('can create a label', function () {
     Label::factory()->create([
@@ -13,7 +14,7 @@ it('can create a label', function () {
         'slug' => 'label',
     ]);
 
-    $this->assertEquals(Label::count(), 1);
+    $this->assertEquals(1, Label::count());
 });
 
 it('can get labels by visibility status', function () {
@@ -28,4 +29,26 @@ it('can get labels by visibility status', function () {
     $this->assertEquals(15, Label::count());
     $this->assertEquals(10, Label::visible()->count());
     $this->assertEquals(5, Label::hidden()->count());
+});
+
+it('can attach label to a ticket', function () {
+    $label = Label::factory()->create();
+    $ticket = Ticket::factory()->create();
+
+    $label->tickets()->attach($ticket);
+
+    $this->assertEquals(1, $label->tickets->count());
+});
+
+it('can detach label from a ticket', function () {
+    $label = Label::factory()->create();
+    $ticket = Ticket::factory()->create();
+
+    $ticket->attachLabels($label);
+
+    $this->assertEquals(1, $label->tickets()->count());
+
+    $label->tickets()->detach($ticket);
+
+    $this->assertEquals(0, $label->tickets()->count());
 });

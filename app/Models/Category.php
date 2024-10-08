@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasVisibility;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
@@ -16,4 +17,12 @@ class Category extends Model
      * @var array<string>|bool
      */
     protected $guarded = [];
+
+    /**
+     * Get Tickets Relationship
+     */
+    public function tickets(): BelongsToMany
+    {
+        return $this->belongsToMany(Ticket::class);
+    }
 }
