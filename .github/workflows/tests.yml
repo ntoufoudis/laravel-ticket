@@ -13,13 +13,6 @@ jobs:
   tests:
     runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: true
-      matrix:
-        php: [8.2, 8.3]
-
-    name: PHP ${{ matrix.php }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,9 +20,9 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: 8.3
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
-          coverage: none
+          coverage: xdebug
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
@@ -43,5 +36,13 @@ jobs:
       - name: Install NPM dependencies
         run: npm install
 
+      - name: Build NPM Files
+        run: npm run build
+
       - name: Execute Tests
-        run: vendor/bin/pest
+        run: vendor/bin/pest --coverage --coverage-clover coverage.xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
