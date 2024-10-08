@@ -13,7 +13,7 @@ it('can create a label', function () {
         'slug' => 'label',
     ]);
 
-    $this->assertEquals(Label::count(), 1);
+    $this->assertEquals(1, Label::count());
 });
 
 it('can get labels by visibility status', function () {

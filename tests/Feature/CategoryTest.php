@@ -13,7 +13,7 @@ it('can create a category', function () {
         'slug' => 'support',
     ]);
 
-    $this->assertEquals(Category::count(), 1);
+    $this->assertEquals(1, Category::count());
 });
 
 it('can get categories by visibility status', function () {
