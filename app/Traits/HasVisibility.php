@@ -9,9 +9,6 @@ trait HasVisibility
 {
     /**
      * Determine whether the model is visible or not.
-     *
-     * @param  Builder  $builder
-     * @return Builder
      */
     public function scopeVisible(Builder $builder): Builder
     {
@@ -20,9 +17,6 @@ trait HasVisibility
 
     /**
      * Determine whether the model is hidden or not.
-     *
-     * @param  Builder  $builder
-     * @return Builder
      */
     public function scopeHidden(Builder $builder): Builder
     {

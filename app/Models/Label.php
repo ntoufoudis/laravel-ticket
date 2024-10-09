@@ -25,4 +25,10 @@ class Label extends Model
     {
         return $this->belongsToMany(Ticket::class);
     }
+
+    public function scopeSearch($query, $search): void
+    {
+        $query->where('name', 'like', '%'.$search.'%')
+            ->orWhere('slug', 'like', '%'.$search.'%');
+    }
 }
