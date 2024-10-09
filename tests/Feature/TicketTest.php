@@ -137,7 +137,7 @@ it('can check if the ticket is resolved or unresolved', function () {
 
 it('can mark a ticket as archived', function () {
     $ticket = Ticket::factory()->create([
-        'status' => 'open'
+        'status' => 'open',
     ]);
 
     $ticket->markAsArchived();

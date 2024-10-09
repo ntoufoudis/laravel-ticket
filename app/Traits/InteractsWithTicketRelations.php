@@ -9,11 +9,6 @@ trait InteractsWithTicketRelations
 {
     /**
      * Associate Labels into an existing ticket
-     *
-     * @param  mixed  $id
-     * @param  array  $attributes
-     * @param  bool  $touch
-     * @return void
      */
     public function attachLabels(mixed $id, array $attributes = [], bool $touch = true): void
     {
@@ -22,10 +17,6 @@ trait InteractsWithTicketRelations
 
     /**
      * Sync the intermediate tables with a list of IDs or collection of the ticket model
-     *
-     * @param  array|Collection|Model  $ids
-     * @param  bool  $detaching
-     * @return array
      */
     public function syncLabels(Model|array|Collection $ids, bool $detaching = true): array
     {
@@ -34,11 +25,6 @@ trait InteractsWithTicketRelations
 
     /**
      * Associate Categories into an existing ticket
-     *
-     * @param  mixed  $id
-     * @param  array  $attributes
-     * @param  bool  $touch
-     * @return void
      */
     public function attachCategories(mixed $id, array $attributes = [], bool $touch = true): void
     {
@@ -47,10 +33,6 @@ trait InteractsWithTicketRelations
 
     /**
      * Sync the intermediate tables with a list of IDs or collection of the ticket model
-     *
-     * @param  array|Collection|Model  $ids
-     * @param  bool  $detaching
-     * @return array
      */
     public function syncCategories(Model|array|Collection $ids, bool $detaching = true): array
     {
@@ -72,7 +54,7 @@ trait InteractsWithTicketRelations
     {
         return $this->messages()->create([
             'user_id' => $user?->id ?? auth()->id(),
-            'message' => $message
+            'message' => $message,
         ]);
     }
 }
