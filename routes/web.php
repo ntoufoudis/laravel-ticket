@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\LabelController;
+use App\Livewire\Labels;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
-
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+//
+//Route::view('dashboard', 'dashboard')
+//    ->middleware(['auth', 'verified'])
+//    ->name('dashboard');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
@@ -15,7 +15,11 @@ Route::view('profile', 'profile')
 
 require __DIR__.'/auth.php';
 
-Route::controller(LabelController::class)->group(function () {
-    Route::get('/labels', 'index')->name('labels.index');
-    Route::post('/labels', 'store')->name('labels.store');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::prefix('dashboard')->group(function () {
+        Route::view('/', 'dashboard')->name('dashboard');
+        Route::prefix('labels')->group(function () {
+            Route::get('/', Labels::class)->name('labels.index');
+        });
+    });
 });
