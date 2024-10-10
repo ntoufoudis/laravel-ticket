@@ -1,10 +1,16 @@
+@props(['closeFunction'])
+
 <div
     {{ $attributes }}
     x-data="{ show: @entangle($attributes->wire('model')) }"
     x-show="show"
     x-cloak
 >
-    <div class="fixed inset-0 bg-gray-900 opacity-90" wire:click="closeModals" @keydown.escape.window="closeModals"></div>
+    <div
+        class="fixed inset-0 bg-gray-900 opacity-90"
+        wire:click="{{ $closeFunction }}"
+        @keydown.escape.window="{{ $closeFunction }}"
+    ></div>
 
     <div class="bg-white shadow-md p-4 max-w-md h-fit m-auto rounded-lg fixed inset-0">
         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
@@ -14,7 +20,7 @@
                 </h3>
             @endif
             <button
-                wire:click="closeModals"
+                wire:click="{{ $closeFunction }}"
                 type="button"
                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8
                     ms-auto inline-flex justify-center items-center"

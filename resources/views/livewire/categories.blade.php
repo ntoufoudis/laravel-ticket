@@ -1,6 +1,6 @@
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('Labels') }}
+        {{ __('Categories') }}
     </h2>
 </x-slot>
 
@@ -11,7 +11,7 @@
                 <x-table.table
                     :columns="$columns"
                     :page="$page"
-                    :items="$labels"
+                    :items="$categories"
                     :sortColumn="$sortColumn"
                     :sortDirection="$sortDirection"
                     search="search"
@@ -26,9 +26,9 @@
     <x-modal wire:model="showCreateModal" close-function="closeModals">
         <x-slot name="header">
             @if($updateMode)
-                Edite Label
+                Edite Category
             @else
-                Create new Label
+                Create new Category
             @endif
         </x-slot>
 
@@ -44,7 +44,7 @@
                             id="name"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                 focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
-                            placeholder="Type label name"
+                            placeholder="Type category name"
                             required
                         >
                         @if ($errors->get('name'))
@@ -64,7 +64,7 @@
                             id="slug"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                 focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
-                            placeholder="Type label slug"
+                            placeholder="Type category slug"
                             required
                         >
                         @if ($errors->get('slug'))
@@ -96,7 +96,7 @@
                     @if($updateMode)
                         Update
                     @else
-                        Add new label
+                        Add new category
                     @endif
                 </button>
             </form>
@@ -120,10 +120,10 @@
                 />
             </svg>
         </x-slot>
-        <x-slot name="header">Delete Label</x-slot>
+        <x-slot name="header">Delete Category</x-slot>
         <x-slot name="main">
             <p class="mb-4 text-gray-500">
-                Are you sure you want to delete <strong>{{ $this->state['name'] ?? '' }}</strong> label?
+                Are you sure you want to delete <strong>{{ $this->state['name'] ?? '' }}</strong> category?
             </p>
         </x-slot>
         <x-slot name="footer">

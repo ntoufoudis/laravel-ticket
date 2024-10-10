@@ -1,4 +1,4 @@
-@props(['items', 'columns', 'page', 'isModalEdit' => false, 'routeEdit'=> null, 'routeView' => null])
+@props(['items', 'columns', 'page', 'editModal', 'deleteModal'])
 
 <tbody>
     @if ($items->isEmpty())
@@ -8,7 +8,7 @@
     @endif
 
     @foreach($items as $key => $item)
-        <x-table.table-row :routeView="$routeView" :routeEdit="$routeEdit" :isModalEdit="$isModalEdit" :item="$item" :columns="$columns" :key="$key" :page="$page" />
+        <x-table.table-row :item="$item" :columns="$columns" :key="$key" :page="$page" :edit-modal="$editModal" :confirm-delete-modal="$deleteModal" />
     @endforeach
 
 </tbody>
