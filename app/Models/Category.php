@@ -19,10 +19,38 @@ class Category extends Model
     protected $guarded = [];
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'is_visible' => 'string',
+        ];
+    }
+
+    public function getIsVisibleAttribute($value): string
+    {
+        $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+        if ($value == '') {
+            return 'No';
+        }
+
+        return 'Yes';
+    }
+
+    /**
      * Get Tickets Relationship
      */
     public function tickets(): BelongsToMany
     {
         return $this->belongsToMany(Ticket::class);
+    }
+
+    public function scopeSearch($query, $value): void
+    {
+        $query->where('name', 'like', '%'.$value.'%')
+            ->orWhere('slug', 'like', '%'.$value.'%');
     }
 }

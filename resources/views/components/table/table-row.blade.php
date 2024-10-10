@@ -1,4 +1,4 @@
-@props(['item', 'key', 'page', 'columns'])
+@props(['item', 'key', 'page', 'columns', 'editModal', 'confirmDeleteModal'])
 
 <tr
     wire:key="{{ $item->id . '-' . $page}}"
@@ -11,7 +11,7 @@
                 {!! $item->{$column['column']} !!}
             @elseif ($column['column'] === 'action')
                 <div class="flex items-center gap-4 justify-start">
-                    <button wire:click="openEditModal({{ $item->id }})" class="flex btn px-1 py-1 rounded-md  text-bg-yellow">
+                    <button wire:click="{{ $editModal }}({{$item->id}})" class="flex btn px-1 py-1 rounded-md  text-bg-yellow">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -28,7 +28,7 @@
                     </button>
                     <button
                         wire:loading.attr="disabled"
-                        wire:click="confirmDelete({{ $item->id }})"
+                        wire:click="{{ $confirmDeleteModal }}({{ $item->id }})"
                         class="flex text-bg-red"
                     >
                         <svg

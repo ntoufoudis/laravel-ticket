@@ -1,13 +1,10 @@
 <?php
 
+use App\Livewire\Categories;
 use App\Livewire\Labels;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
-//
-//Route::view('dashboard', 'dashboard')
-//    ->middleware(['auth', 'verified'])
-//    ->name('dashboard');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
@@ -18,8 +15,7 @@ require __DIR__.'/auth.php';
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('dashboard')->group(function () {
         Route::view('/', 'dashboard')->name('dashboard');
-        Route::prefix('labels')->group(function () {
-            Route::get('/', Labels::class)->name('labels.index');
-        });
+        Route::get('/labels', Labels::class)->name('labels.index');
+        Route::get('/categories', Categories::class)->name('labels.index');
     });
 });
