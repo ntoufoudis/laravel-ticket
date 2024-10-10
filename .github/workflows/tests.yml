@@ -40,7 +40,7 @@ jobs:
         run: npm run build
 
       - name: Execute Tests
-        run: vendor/bin/pest --coverage --coverage-clover coverage.xml
+        run: vendor/bin/pest --coverage --coverage-clover coverage.xml --log-junit junit.xml
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
