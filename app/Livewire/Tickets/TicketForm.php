@@ -3,6 +3,7 @@
 namespace App\Livewire\Tickets;
 
 use App\Livewire\Forms\TicketForm as Form;
+use App\Livewire\Recaptcha\ValidatesRecaptcha;
 use App\Models\Attachment;
 use App\Models\Category;
 use App\Models\Message;
@@ -22,9 +23,12 @@ use Livewire\WithFileUploads;
 
     public array $photos = [];
 
+    public string $gRecaptchaResponse;
+
     /**
      * Handle Creating new Ticket
      */
+    #[ValidatesRecaptcha]
     public function store(): void
     {
         $data = $this->validate();
