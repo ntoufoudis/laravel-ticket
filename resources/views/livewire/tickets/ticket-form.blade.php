@@ -101,6 +101,7 @@
                 type="file"
                 multiple
             >
+            <div wire:loading wire:target="ticket.attachments">Uploading...</div>
             <x-breeze.input-error :messages="$errors->get('ticket.attachments')" class="mt-2" />
         </div>
 
