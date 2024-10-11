@@ -15,6 +15,8 @@
                     :sortColumn="$sortColumn"
                     :sortDirection="$sortDirection"
                     search="search"
+                    visibility="visibility"
+                    :filters="$filters"
                     create-modal="'showCreateModal'"
                     edit-modal="openEditModal"
                     delete-modal="confirmDelete"
