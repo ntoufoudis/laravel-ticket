@@ -53,4 +53,11 @@ class Label extends Model
         $query->where('name', 'like', '%'.$value.'%')
             ->orWhere('slug', 'like', '%'.$value.'%');
     }
+
+    public function scopeVisibility($query, $value): void
+    {
+        if ($value == 1 || $value == 0) {
+            $query->where('is_visible', $value);
+        }
+    }
 }
