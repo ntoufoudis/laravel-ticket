@@ -3,7 +3,6 @@
         {{ __('Labels') }}
     </h2>
 </x-slot>
-
 <div class="py-10">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -75,7 +74,7 @@
                             </ul>
                         @endif
                     </div>
-                    <div class="block mt-2">
+                    <div class="col-span-2 sm:col-span-1 mt-2 flex items-center">
                         <label for="is_visible" class="inline-flex items-center">
                             <input
                                 wire:model="state.is_visible"
@@ -86,6 +85,27 @@
                             >
                             <span class="ms-2 text-sm text-gray-600">{{ __('Visible') }}</span>
                         </label>
+                    </div>
+                    <div class="col-span-2 sm:col-span-1 mt-2">
+                        <label for="color" class="block mb-2 text-sm font-medium text-gray-900">Color</label>
+                        <select
+                            wire:model="state.color"
+                            class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md
+                    shadow-sm"
+                        >
+                            <option value="">Select</option>
+                            @foreach($colors as $color)
+                                <option class="capitalize" value="{{ $color }}">{{ $color->name }}</option>
+                            @endforeach
+
+                        </select>
+                        @if ($errors->get('color'))
+                            <ul class="text-sm text-red-600 space-y-1 mt-2">
+                                @foreach ((array) $errors->get('color') as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
                     </div>
                 </div>
                 <button

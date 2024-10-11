@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Enums\Color;
 use App\Models\Label;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Validator;
@@ -15,23 +16,14 @@ use Livewire\WithPagination;
     use WithPagination;
 
     public $page = 1;
-
     public $search = '';
-
     public $sortDirection = 'ASC';
-
     public $sortColumn = 'id';
-
     public $confirmDeleteId;
-
     public bool $showCreateModal = false;
-
     public bool $showConfirmDeleteModal = false;
-
     public bool $updateMode = false;
-
     public ?Label $label = null;
-
     public array $state = [];
 
     /**
@@ -124,11 +116,13 @@ use Livewire\WithPagination;
         $validated = Validator::make($this->state, [
             'name' => ['required', 'string', 'max:50', 'unique:'.Label::class],
             'slug' => ['required', 'string', 'max:50', 'unique:'.Label::class],
+            'color' => ['required'],
         ])->validate();
 
         Label::create([
             'name' => $validated['name'],
             'slug' => $validated['slug'],
+            'color' => $validated['color'],
             'is_visible' => isset($this->state['is_visible']) ? 1 : 0,
         ]);
 
@@ -157,11 +151,15 @@ use Livewire\WithPagination;
                 'max:50',
                 Rule::unique(Label::class, 'slug')->ignore($label->id),
             ],
+            'color' => [
+                'required',
+            ],
         ])->validate();
 
         $label->update([
             'name' => $validated['name'],
             'slug' => $validated['slug'],
+            'color' => $validated['color'],
             'is_visible' => $this->state['is_visible'],
         ]);
 
@@ -204,6 +202,7 @@ use Livewire\WithPagination;
             ['label' => 'Name', 'column' => 'name', 'isData' => true],
             ['label' => 'Slug', 'column' => 'slug', 'isData' => true],
             ['label' => 'Visible', 'column' => 'is_visible', 'isData' => true],
+            ['label' => 'Color', 'column' => 'color', 'customClass' => 'bgColor', 'isData' => true],
 
             ['label' => 'Actions', 'column' => 'action', 'isData' => false],
         ];
@@ -213,6 +212,7 @@ use Livewire\WithPagination;
             ->paginate(10);
 
         return view('livewire.labels', [
+            'colors' => Color::cases(),
             'columns' => $columns,
             'labels' => $labels,
         ]);
