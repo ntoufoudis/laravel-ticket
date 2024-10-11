@@ -11,15 +11,16 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
-            $table->foreignIdFor(User::class);
-            $table->string('title');
+            $table->uuid()->default(uuid_create());
+            $table->foreignIdFor(User::class)->nullable()->constrained();
+            $table->unsignedBigInteger('assigned_to')->nullable();
+            $table->foreign('assigned_to')->references('id')->on('users');
+            $table->string('subject');
             $table->string('message')->nullable();
             $table->string('priority')->default('low');
             $table->string('status')->default('open');
             $table->boolean('is_resolved')->default(false);
             $table->boolean('is_locked')->default(false);
-            $table->unsignedBigInteger('assigned_to')->nullable()->references('id')->on('users');
             $table->timestamps();
         });
     }

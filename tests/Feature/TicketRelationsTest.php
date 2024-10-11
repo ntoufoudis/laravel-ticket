@@ -9,12 +9,12 @@ it('creates a ticket with associated user', function () {
     $user = User::factory()->create();
 
     Ticket::factory()->create([
-        'title' => 'Title',
+        'subject' => 'Title',
         'user_id' => $user->id,
     ]);
 
     $this->assertEquals(1, $user->tickets()->count());
-    $this->assertEquals('Title', $user->tickets()->first()->title);
+    $this->assertEquals('Title', $user->tickets()->first()->subject);
 });
 
 it('associates labels to a ticket', function () {

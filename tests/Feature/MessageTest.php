@@ -19,12 +19,12 @@ it('can create a message', function () {
 it('can attach message to a ticket', function () {
     $message = Message::factory()->create();
     $ticket = Ticket::factory()->create([
-        'title' => 'Can you create a message?',
+        'subject' => 'Can you create a message?',
     ]);
 
     $message->ticket()->associate($ticket);
 
-    $this->assertEquals('Can you create a message?', $message->ticket->title);
+    $this->assertEquals('Can you create a message?', $message->ticket->subject);
 });
 
 it('can be associated to a user', function () {

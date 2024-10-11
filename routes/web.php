@@ -2,6 +2,7 @@
 
 use App\Livewire\Categories;
 use App\Livewire\Labels;
+use App\Livewire\Tickets\TicketForm;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -19,3 +20,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/categories', Categories::class)->name('labels.index');
     });
 });
+
+Route::get('/tickets', TicketForm::class)->name('tickets.create');
