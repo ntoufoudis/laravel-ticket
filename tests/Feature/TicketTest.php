@@ -5,12 +5,12 @@ use App\Models\User;
 
 it('can create a ticket', function () {
     Ticket::factory()->create([
-        'title' => 'Ticket 1',
+        'subject' => 'Ticket 1',
         'message' => 'Message body',
     ]);
 
     $this->assertDatabaseHas('tickets', [
-        'title' => 'Ticket 1',
+        'subject' => 'Ticket 1',
         'message' => 'Message body',
     ]);
 
@@ -250,18 +250,18 @@ it('can assign ticket to a user using user model', function () {
     $ticket = Ticket::factory()->create();
     $agent = User::factory()->create();
 
-    $ticket->assignTo($agent);
+    $ticket->assignTo($agent->id);
 
-    expect($ticket->assigned_to)->toBe($agent);
+    expect($ticket->assigned_to)->toBe($agent->id);
 });
 
 it('can assign ticket to a user using user id', function () {
     $ticket = Ticket::factory()->create();
-    $agent = User::factory()->create();
+    $user = User::factory()->create();
 
-    $ticket->assignTo($agent->id);
+    $ticket->assignTo($user->id);
 
-    expect($ticket->assigned_to)->toBe($agent->id);
+    expect($ticket->assigned_to)->toBe($user->id);
 });
 
 it('can mark a ticket priority as low', function () {

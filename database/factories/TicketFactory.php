@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Agent;
 use App\Models\Ticket;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -15,8 +15,7 @@ class TicketFactory extends Factory
     {
         return [
             'uuid' => $this->faker->uuid(),
-            'user_id' => User::factory(),
-            'title' => $this->faker->title(),
+            'subject' => $this->faker->title(),
             'message' => $this->faker->realText(),
             'priority' => $this->faker->randomElement(['low', 'normal', 'high']),
             'status' => $this->faker->randomElement(['open', 'closed']),

@@ -188,7 +188,7 @@ trait InteractsWithTickets
     /**
      * Add new message on an existing ticket as a custom user
      */
-    public function assignTo(Model|int $user): self
+    public function assignTo(int $user): self
     {
         $this->update([
             'assigned_to' => $user,

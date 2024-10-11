@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Agent;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -11,17 +10,20 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('attachments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->nullable()->constrained();
+            $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Ticket::class)->constrained();
-            $table->text('message');
+            $table->string('name');
+            $table->string('type');
+            $table->string('path');
+            $table->string('size');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('attachments');
     }
 };
