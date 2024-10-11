@@ -25,6 +25,7 @@ use Livewire\WithPagination;
     public bool $updateMode = false;
     public ?Label $label = null;
     public array $state = [];
+    public string $visibility = '';
 
     /**
      * Open Create Modal
@@ -208,10 +209,21 @@ use Livewire\WithPagination;
         ];
 
         $labels = Label::search($this->search)
+            ->visibility($this->visibility)
             ->orderBy($this->sortColumn, $this->sortDirection)
             ->paginate(10);
 
         return view('livewire.labels', [
+            'filters' => [
+                [
+                    'name' => 'Visible',
+                    'value' => 1,
+                ],
+                [
+                    'name' => 'Not Visible',
+                    'value' => 0,
+                ],
+            ],
             'colors' => Color::cases(),
             'columns' => $columns,
             'labels' => $labels,

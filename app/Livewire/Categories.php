@@ -15,24 +15,16 @@ use Livewire\WithPagination;
     use WithPagination;
 
     public $page = 1;
-
     public $search = '';
-
     public $sortDirection = 'ASC';
-
     public $sortColumn = 'id';
-
     public $confirmDeleteId;
-
     public bool $showCreateModal = false;
-
     public bool $showConfirmDeleteModal = false;
-
     public bool $updateMode = false;
-
     public ?Category $category = null;
-
     public array $state = [];
+    public string $visibility = '';
 
     /**
      * Open Edit Modal
@@ -201,10 +193,21 @@ use Livewire\WithPagination;
         ];
 
         $categories = Category::search($this->search)
+            ->visibility($this->visibility)
             ->orderBy($this->sortColumn, $this->sortDirection)
             ->paginate(10);
 
         return view('livewire.categories', [
+            'filters' => [
+                [
+                    'name' => 'Visible',
+                    'value' => 1,
+                ],
+                [
+                    'name' => 'Not Visible',
+                    'value' => 0,
+                ],
+            ],
             'columns' => $columns,
             'categories' => $categories,
         ]);

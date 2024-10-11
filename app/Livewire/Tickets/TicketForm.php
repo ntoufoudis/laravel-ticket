@@ -61,7 +61,7 @@ use Livewire\WithFileUploads;
 
         if (isset($data['attachments'])) {
             foreach ($data['attachments'] as $attachment) {
-                $attachment->store('/attachments/'.$attachment->getClientOriginalName());
+                $path = $attachment->store(path: 'attachments');
 
                 Attachment::create([
                     'user_id' => $user->id,
@@ -69,7 +69,7 @@ use Livewire\WithFileUploads;
                     'name' => $attachment->getClientOriginalName(),
                     'size' => $attachment->getSize(),
                     'type' => $attachment->getMimeType(),
-                    'path' => $attachment->getRealPath(),
+                    'path' => $path,
                 ]);
             }
         }
