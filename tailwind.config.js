@@ -18,4 +18,11 @@ export default {
     },
 
     plugins: [forms],
+
+    safelist: [
+        'w-28',
+        {
+            pattern: /bg-(gray|red|orange|yellow|lime|green|cyan|blue|purple|pink)-(500)/,
+        },
+    ],
 };

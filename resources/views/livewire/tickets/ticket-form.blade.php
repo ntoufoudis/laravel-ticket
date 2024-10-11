@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit="store" class="grid grid-cols-2 gap-4">
+    <form wire:submit="store" wire:recaptcha class="grid grid-cols-2 gap-4">
         <!-- Name -->
         <div class="col-span-2 sm:col-span-1">
             <x-breeze.input-label for="name" :value="__('Name')" />
@@ -114,6 +114,7 @@
             </x-breeze.secondary-button>
         </div>
     </form>
+    @livewireRecaptcha
 </div>
 
 
