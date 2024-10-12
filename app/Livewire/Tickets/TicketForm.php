@@ -49,6 +49,7 @@ use Livewire\WithFileUploads;
             'subject' => $data['subject'],
             'message' => $data['description'],
             'priority' => $data['priority'],
+            'pin' => rand(0001, 9999),
         ]);
 
         Message::create([
