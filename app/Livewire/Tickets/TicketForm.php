@@ -4,12 +4,15 @@ namespace App\Livewire\Tickets;
 
 use App\Livewire\Forms\TicketForm as Form;
 use App\Livewire\Recaptcha\ValidatesRecaptcha;
+use App\Mail\TicketCreated;
 use App\Models\Attachment;
 use App\Models\Category;
 use App\Models\Message;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -37,9 +40,12 @@ use Livewire\WithFileUploads;
     #[ValidatesRecaptcha]
     public function store(): void
     {
+        $uuid = Str::uuid()->toString();
+
         $data = $this->validate();
 
         $ticket = Ticket::create([
+            'uuid' => $uuid,
             'user_id' => $this->user->id,
             'category_id' => $data['category'],
             'subject' => $data['subject'],
@@ -71,6 +77,8 @@ use Livewire\WithFileUploads;
 
         flash()->success('Ticket created.');
         $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+
+        Mail::to($this->user->email)->send(new TicketCreated($ticket));
     }
 
     public function render(): View

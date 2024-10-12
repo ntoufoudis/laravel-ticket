@@ -12,7 +12,7 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->uuid()->default(uuid_create());
+            $table->uuid();
             $table->foreignIdFor(User::class)->nullable()->constrained();
             $table->foreignIdFor(Category::class)->constrained();
             $table->unsignedBigInteger('assigned_to')->nullable();
