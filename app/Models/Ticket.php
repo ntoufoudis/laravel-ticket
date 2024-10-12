@@ -49,14 +49,9 @@ class Ticket extends Model
     /**
      * Get Categories Relationship
      */
-    public function categories(): BelongsToMany
+    public function category(): BelongsTo
     {
-        return $this->belongsToMany(
-            Category::class,
-            'category_ticket',
-            'ticket_id',
-            'category_id'
-        );
+        return $this->BelongsTo(Category::class);
     }
 
     /**
@@ -70,5 +65,10 @@ class Ticket extends Model
             'ticket_id',
             'label_id'
         );
+    }
+
+    public function scopeSearch($query, $value): void
+    {
+        $query->where('subject', 'like', '%'.$value.'%');
     }
 }

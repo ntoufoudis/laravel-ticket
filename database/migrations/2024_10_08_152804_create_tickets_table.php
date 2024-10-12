@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -11,8 +12,9 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->uuid()->default(uuid_create());
+            $table->uuid();
             $table->foreignIdFor(User::class)->nullable()->constrained();
+            $table->foreignIdFor(Category::class)->constrained();
             $table->unsignedBigInteger('assigned_to')->nullable();
             $table->foreign('assigned_to')->references('id')->on('users');
             $table->string('subject');
@@ -21,6 +23,7 @@ return new class extends Migration
             $table->string('status')->default('open');
             $table->boolean('is_resolved')->default(false);
             $table->boolean('is_locked')->default(false);
+            $table->integer('pin')->default(0000);
             $table->timestamps();
         });
     }

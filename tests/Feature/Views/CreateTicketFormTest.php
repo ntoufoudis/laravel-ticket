@@ -1,11 +1,12 @@
 <?php
 
-use App\Livewire\Tickets\TicketForm;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
-use Livewire\Livewire;
+use App\Models\User;
 
 it('can render the create ticket form', function () {
+    $user = User::factory()->create();
+
+    $this->actingAs($user);
+
     $response = $this->get(route('tickets.create'));
 
     $response

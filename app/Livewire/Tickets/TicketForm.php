@@ -4,13 +4,15 @@ namespace App\Livewire\Tickets;
 
 use App\Livewire\Forms\TicketForm as Form;
 use App\Livewire\Recaptcha\ValidatesRecaptcha;
+use App\Mail\TicketCreated;
 use App\Models\Attachment;
 use App\Models\Category;
 use App\Models\Message;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -25,46 +27,45 @@ use Livewire\WithFileUploads;
 
     public string $gRecaptchaResponse;
 
+    public User $user;
+
+    public function mount(): void
+    {
+        $this->user = auth()->user();
+    }
+
     /**
      * Handle Creating new Ticket
      */
     #[ValidatesRecaptcha]
     public function store(): void
     {
+        $uuid = Str::uuid()->toString();
+
         $data = $this->validate();
 
-        if (! User::where('email', $this->ticket->email)->exists()) {
-            $user = User::create([
-                'name' => $this->ticket->name,
-                'email' => $this->ticket->email,
-                'password' => Hash::make('changeMe'),
-            ]);
-
-        } else {
-            $user = User::where('email', $this->ticket->email)->first();
-        }
-
         $ticket = Ticket::create([
-            'user_id' => $user->id,
+            'uuid' => $uuid,
+            'user_id' => $this->user->id,
+            'category_id' => $data['category'],
             'subject' => $data['subject'],
             'message' => $data['description'],
             'priority' => $data['priority'],
+            'pin' => rand(0001, 9999),
         ]);
 
         Message::create([
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
             'ticket_id' => $ticket->id,
             'message' => $data['description'],
         ]);
-
-        $ticket->attachCategories($data['category']);
 
         if (isset($data['attachments'])) {
             foreach ($data['attachments'] as $attachment) {
                 $path = $attachment->store(path: 'attachments');
 
                 Attachment::create([
-                    'user_id' => $user->id,
+                    'user_id' => $this->user->id,
                     'ticket_id' => $ticket->id,
                     'name' => $attachment->getClientOriginalName(),
                     'size' => $attachment->getSize(),
@@ -76,6 +77,8 @@ use Livewire\WithFileUploads;
 
         flash()->success('Ticket created.');
         $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+
+        Mail::to($this->user->email)->send(new TicketCreated($ticket));
     }
 
     public function render(): View

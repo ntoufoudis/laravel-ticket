@@ -24,9 +24,9 @@ trait InteractsWithTicketRelations
     }
 
     /**
-     * Associate Categories into an existing ticket
+     * Associate Category into an existing ticket
      */
-    public function attachCategories(mixed $id, array $attributes = [], bool $touch = true): void
+    public function attachCategory(mixed $id, array $attributes = [], bool $touch = true): void
     {
         $this->categories()->attach($id, $attributes, $touch);
     }

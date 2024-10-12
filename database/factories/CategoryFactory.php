@@ -14,7 +14,7 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $name = $this->faker->unique()->word(),
+            'name' => $name = $this->faker->unique()->words(2, true),
             'slug' => Str::slug($name),
             'is_visible' => $this->faker->boolean(),
             'created_at' => Carbon::now(),

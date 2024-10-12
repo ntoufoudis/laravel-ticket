@@ -16,7 +16,9 @@
     <div class="flex flex-col md:flex-row items-center justify-between md:space-x-4">
         <x-table.search :search="$search" />
         <x-table.add-new :create-modal="$createModal" />
-        <x-table.filter :filters="$filters" :visibility="$visibility" />
+        @if(isset($filters))
+            <x-table.filter :filters="$filters" :visibility="$visibility" />
+        @endif
     </div>
     <div class="overflow-x-auto">
         <table class="w-full text-sm text-left text-gray-500">
