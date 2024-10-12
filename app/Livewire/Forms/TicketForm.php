@@ -7,12 +7,6 @@ use Livewire\Form;
 
 class TicketForm extends Form
 {
-    #[Validate('required|string')]
-    public string $name = '';
-
-    #[Validate('required|string|email')]
-    public string $email = '';
-
     #[Validate('required|string|max:100')]
     public string $subject = '';
 

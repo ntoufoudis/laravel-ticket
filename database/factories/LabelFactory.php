@@ -15,7 +15,7 @@ class LabelFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $name = $this->faker->unique()->word(),
+            'name' => $name = $this->faker->unique()->words(2, true),
             'slug' => Str::slug($name),
             'is_visible' => $this->faker->boolean(),
             'color' => $this->faker->randomElement(Color::cases()),

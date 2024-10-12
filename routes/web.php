@@ -14,6 +14,7 @@ Route::view('profile', 'profile')
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/tickets', TicketForm::class)->name('tickets.create');
     Route::prefix('dashboard')->group(function () {
         Route::view('/', 'dashboard')->name('dashboard');
         Route::get('/labels', Labels::class)->name('labels.index');
@@ -21,4 +22,3 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-Route::get('/tickets', TicketForm::class)->name('tickets.create');

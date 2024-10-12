@@ -4,13 +4,10 @@
         <div class="col-span-2 sm:col-span-1">
             <x-breeze.input-label for="name" :value="__('Name')" />
             <x-breeze.text-input
-                wire:model="ticket.name"
+                value="{{ $user->name }}"
+                disabled
                 id="name"
                 class="block mt-1 w-full"
-                type="text"
-                name="name"
-                required
-                autofocus
             />
             <x-breeze.input-error :messages="$errors->get('ticket.email')" class="mt-2" />
         </div>
@@ -19,12 +16,10 @@
         <div class="col-span-2 sm:col-span-1">
             <x-breeze.input-label for="email" :value="__('Email')" />
             <x-breeze.text-input
-                wire:model="ticket.email"
+                value="{{ $user->email }}"
+                disabled
                 id="email"
                 class="block mt-1 w-full"
-                type="email"
-                name="email"
-                required
             />
             <x-breeze.input-error :messages="$errors->get('ticket.email')" class="mt-2" />
         </div>
@@ -39,6 +34,7 @@
                 type="text"
                 name="subject"
                 required
+                autofocus
             />
             <x-breeze.input-error :messages="$errors->get('ticket.subject')" class="mt-2" />
         </div>
