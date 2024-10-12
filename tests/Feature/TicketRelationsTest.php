@@ -47,13 +47,16 @@ it('sync labels to a ticket without detaching', function () {
     $this->assertEquals(8, $ticket->labels()->count());
 });
 
-it('associates categories to a ticket', function () {
-    $categories = Category::factory(5)->create();
+it('associates category to a ticket', function () {
+    $category = Category::factory(5)->create([
+        'name' => 'Category 1',
+    ]);
+
     $ticket = Ticket::factory()->create();
 
-    $ticket->attachCategories($categories->pluck('id'));
+    $ticket->attachCategory($category->pluck('id'));
 
-    $this->assertEquals(5, $ticket->categories()->count());
+    $this->assertEquals('Category 1', $ticket->category()->name);
 });
 
 it('sync categories to a ticket', function () {

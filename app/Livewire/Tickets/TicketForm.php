@@ -41,6 +41,7 @@ use Livewire\WithFileUploads;
 
         $ticket = Ticket::create([
             'user_id' => $this->user->id,
+            'category_id' => $data['category'],
             'subject' => $data['subject'],
             'message' => $data['description'],
             'priority' => $data['priority'],
@@ -52,8 +53,6 @@ use Livewire\WithFileUploads;
             'ticket_id' => $ticket->id,
             'message' => $data['description'],
         ]);
-
-        $ticket->attachCategories($data['category']);
 
         if (isset($data['attachments'])) {
             foreach ($data['attachments'] as $attachment) {

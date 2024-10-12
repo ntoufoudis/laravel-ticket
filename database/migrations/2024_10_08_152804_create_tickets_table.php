@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,6 +14,7 @@ return new class extends Migration
             $table->id();
             $table->uuid()->default(uuid_create());
             $table->foreignIdFor(User::class)->nullable()->constrained();
+            $table->foreignIdFor(Category::class)->constrained();
             $table->unsignedBigInteger('assigned_to')->nullable();
             $table->foreign('assigned_to')->references('id')->on('users');
             $table->string('subject');
