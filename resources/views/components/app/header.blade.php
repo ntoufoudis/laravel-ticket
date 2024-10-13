@@ -43,7 +43,8 @@
                 <hr class="w-px h-6 bg-gray-200 dark:bg-gray-700/60 border-none" />
 
                 <!-- User Button -->
-                <x-dropdown-profile align="right" />
+                <livewire:layout.navigation />
+
             </div>
         </div>
     </div>

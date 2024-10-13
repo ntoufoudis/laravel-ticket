@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Label;
 use App\Models\Ticket;
 
@@ -32,8 +33,11 @@ it('can get labels by visibility status', function () {
 });
 
 it('can attach label to a ticket', function () {
+    $category = Category::factory()->create();
     $label = Label::factory()->create();
-    $ticket = Ticket::factory()->create();
+    $ticket = Ticket::factory()->create([
+        'category_id' => $category->id,
+    ]);
 
     $label->tickets()->attach($ticket);
 
@@ -41,8 +45,11 @@ it('can attach label to a ticket', function () {
 });
 
 it('can detach label from a ticket', function () {
+    $category = Category::factory()->create();
     $label = Label::factory()->create();
-    $ticket = Ticket::factory()->create();
+    $ticket = Ticket::factory()->create([
+        'category_id' => $category->id,
+    ]);
 
     $ticket->attachLabels($label);
 

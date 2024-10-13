@@ -17,14 +17,25 @@ it('can show edit modal', function () {
         'name' => 'Test Category',
     ]);
 
-    $component = Livewire::test('categories');
-
-    $component->call('openEditModal', $category->id);
+    $component = Livewire::test('categories')
+        ->call('openEditModal', $category->id);
 
     $component
         ->assertHasNoErrors()
         ->assertSee('Update')
         ->assertSee($category->name);
+});
+
+it('can show visibility on update modal', function () {
+    $category = Category::factory()->create([
+        'name' => 'Test Category',
+        'is_visible' => true,
+    ]);
+
+    Livewire::test('categories')
+        ->call('openEditModal', $category->id)
+        ->assertSet('state.is_visible', true)
+        ->assertNotSet('state.is_visible', false);
 });
 
 it('can show delete modal', function () {
@@ -93,9 +104,11 @@ it('can search categories', function () {
 it('can sort data', function () {
     $category1 = Category::factory()->create([
         'name' => 'Category 1',
+        'slug' => 'category-1',
     ]);
     $category2 = Category::factory()->create([
         'name' => 'Category 2',
+        'slug' => 'category-2',
     ]);
 
     $component = Livewire::test('categories');
@@ -111,18 +124,32 @@ it('can sort data', function () {
     $component
         ->assertHasNoErrors()
         ->assertSeeInOrder([$category2->name, $category1->name]);
+
+    $component
+        ->set('sortColumn', 'name')
+        ->set('sortDirection', 'asc')
+        ->call('doSort', 'name')
+        ->assertHasNoErrors()
+        ->assertSeeInOrder([$category1->name, $category2->name]);
+
+    $component
+        ->call('doSort', 'slug')
+        ->assertHasNoErrors()
+        ->assertSet('sortColumn', 'slug')
+        ->assertSet('sortDirection', 'ASC')
+        ->assertSeeInOrder([$category1->name, $category2->name]);
 });
 
 it('can create new category', function () {
-    $category = Category::factory()->create();
-
     Livewire::test('categories')
-        ->set('state', $category->toArray())
+        ->set('state.name', 'Category 1')
+        ->set('state.slug', 'category-1')
         ->call('store')
-        ->assertSee($category->name);
+        ->assertSee('Category 1');
 
+    $this->assertEquals('category-1', Category::first()->slug);
     $this->assertDatabaseHas('categories', [
-        'name' => $category->name,
+        'name' => 'Category 1',
     ]);
 });
 
@@ -152,4 +179,18 @@ it('can delete category', function () {
         ->assertDontSee($category->name);
 
     $this->assertDatabaseMissing('categories', $category->toArray());
+});
+
+it('can initialize component with stored page', function () {
+    session()->put('page', 2);
+
+    Livewire::test('categories')
+        ->assertSet('page', 2);
+});
+
+it('can save current page to session', function () {
+    Livewire::test('categories')
+        ->set('page', 3);
+
+    $this->assertEquals(3, session('page'));
 });

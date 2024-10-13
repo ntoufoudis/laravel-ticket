@@ -27,3 +27,10 @@
 <!-- TODO: Notify Admin if SLA is about to be breached -->
 <!-- TODO: Notify Admin if SLA is breached -->
 <!-- TODO: Create statistics and charts -->
+
+<!-- TEST: Categories Update Modal -->
+<!-- TEST: Categories Sort -->
+<!-- TEST: Categories Update Page -->
+<!-- TEST: Categories Store -->
+<!-- TEST: Categories Mount -->
+
