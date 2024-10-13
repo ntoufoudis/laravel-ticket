@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Tickets;
+namespace App\Livewire\Pages\Frontend\Tickets;
 
 use App\Livewire\Forms\TicketForm as Form;
 use App\Livewire\Recaptcha\ValidatesRecaptcha;
@@ -83,7 +83,7 @@ use Livewire\WithFileUploads;
 
     public function render(): View
     {
-        return view('livewire.tickets.ticket-form', [
+        return view('livewire.pages.frontend.tickets.ticket-form', [
             'categories' => Category::all(),
         ]);
     }

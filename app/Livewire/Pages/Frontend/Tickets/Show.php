@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Tickets;
+namespace App\Livewire\Pages\Frontend\Tickets;
 
 use App\Models\Ticket;
 use App\Models\User;
@@ -23,7 +23,7 @@ class Show extends Component
 
     public function render(): View
     {
-        return view('livewire.tickets.show', [
+        return view('livewire.pages.frontend.tickets.show', [
             'ticket' => $this->ticket,
         ]);
     }

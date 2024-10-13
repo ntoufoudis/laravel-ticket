@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Pages\Frontend;
 
 use App\Models\Ticket;
 use Illuminate\Contracts\View\View;

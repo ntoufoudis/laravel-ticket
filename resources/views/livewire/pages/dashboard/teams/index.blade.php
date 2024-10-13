@@ -15,7 +15,7 @@
             <x-search search="search" />
 
             <!-- Add New Button -->
-            <x-create-button modal="'showCreateModal'" label="Add new Team" />
+            <x-create-button label="Add new Team" event="'show-create-modal'" />
         </div>
     </div>
 
@@ -26,8 +26,11 @@
                 :items="$teams"
                 :sortColumn="$sortColumn"
                 :sortDirection="$sortDirection"
-                edit-modal="openEditModal"
-                delete-modal="confirmDelete"
+                edit-modal="'show-edit-modal'"
+                delete-modal="'show-delete-modal'"
         />
     </div>
+    <livewire:pages.dashboard.teams.create-modal />
+    <livewire:pages.dashboard.teams.edit-modal />
+    <livewire:pages.dashboard.teams.delete-modal />
 </div>

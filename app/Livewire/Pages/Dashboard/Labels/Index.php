@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Livewire\Pages\Dashboard\Teams;
+namespace App\Livewire\Pages\Dashboard\Labels;
 
-use App\Models\Team;
+use App\Enums\Color;
+use App\Models\Label;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -11,7 +12,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 #[Layout('layouts.app')]
-class Teams extends Component
+class Index extends Component
 {
     use WithPagination;
 
@@ -23,16 +24,9 @@ class Teams extends Component
     public bool $showCreateModal = false;
     public bool $showConfirmDeleteModal = false;
     public bool $updateMode = false;
-    public ?Team $team = null;
+    public ?Label $label = null;
     public array $state = [];
-
-    /**
-     * Open Create Modal
-     */
-    public function openCreateModal(): void
-    {
-        $this->showCreateModal = false;
-    }
+    public string $visibility = '';
 
     /**
      * Open Edit Modal
@@ -41,9 +35,15 @@ class Teams extends Component
     {
         $this->updateMode = true;
 
-        $team = Team::find($id);
+        $label = Label::find($id);
 
-        $this->state = $team->toArray();
+        $this->state = $label->toArray();
+
+        if ($label->is_visible === 'Yes') {
+            $this->state['is_visible'] = true;
+        } else {
+            $this->state['is_visible'] = false;
+        }
 
         $this->showCreateModal = true;
     }
@@ -53,9 +53,9 @@ class Teams extends Component
      */
     public function confirmDelete(int $id): void
     {
-        $team = Team::find($id);
+        $label = Label::find($id);
 
-        $this->state = $team->toArray();
+        $this->state = $label->toArray();
 
         $this->showConfirmDeleteModal = true;
     }
@@ -108,15 +108,21 @@ class Teams extends Component
     public function store(): void
     {
         $validated = Validator::make($this->state, [
-            'name' => ['required', 'string', 'max:50', 'unique:'.Team::class],
-            'description' => ['required', 'string', 'max:50'],
+            'name' => ['required', 'string', 'max:50', 'unique:'.Label::class],
+            'slug' => ['required', 'string', 'max:50', 'unique:'.Label::class],
+            'color' => ['required'],
         ])->validate();
 
-        Team::create($validated);
+        Label::create([
+            'name' => $validated['name'],
+            'slug' => $validated['slug'],
+            'color' => $validated['color'],
+            'is_visible' => isset($this->state['is_visible']) ? 1 : 0,
+        ]);
 
         $this->closeModals();
 
-        flash()->success('Team successfully added.');
+        flash()->success('Label successfully added.');
     }
 
     /**
@@ -124,27 +130,36 @@ class Teams extends Component
      */
     public function edit(): void
     {
-        $team = Team::find($this->state['id']);
+        $label = Label::find($this->state['id']);
 
         $validated = Validator::make($this->state, [
             'name' => [
                 'required',
                 'string',
                 'max:50',
-                Rule::unique(Team::class, 'name')->ignore($team->id),
+                Rule::unique(Label::class, 'name')->ignore($label->id),
             ],
-            'description' => [
+            'slug' => [
                 'required',
                 'string',
                 'max:50',
+                Rule::unique(Label::class, 'slug')->ignore($label->id),
+            ],
+            'color' => [
+                'required',
             ],
         ])->validate();
 
-        $team->update($validated);
+        $label->update([
+            'name' => $validated['name'],
+            'slug' => $validated['slug'],
+            'color' => $validated['color'],
+            'is_visible' => $this->state['is_visible'],
+        ]);
 
         $this->closeModals();
 
-        flash()->success('Team updated successfully.');
+        flash()->success('Label updated successfully.');
     }
 
     /**
@@ -152,13 +167,13 @@ class Teams extends Component
      */
     public function delete(): void
     {
-        $team = Team::findOrFail($this->state['id']);
+        $label = Label::findOrFail($this->state['id']);
 
-        $team->delete();
+        $label->delete();
 
         $this->closeModals();
 
-        flash()->success('Team successfully deleted.');
+        flash()->success('Label successfully deleted.');
     }
 
     /**
@@ -179,18 +194,32 @@ class Teams extends Component
         $columns = [
             ['label' => 'Id', 'column' => 'id', 'isData' => true],
             ['label' => 'Name', 'column' => 'name', 'isData' => true],
-            ['label' => 'Description', 'column' => 'description', 'isData' => true],
+            ['label' => 'Slug', 'column' => 'slug', 'isData' => true],
+            ['label' => 'Visible', 'column' => 'is_visible', 'isData' => true],
+            ['label' => 'Color', 'column' => 'color', 'customClass' => 'bgColor', 'isData' => true],
 
             ['label' => 'Actions', 'column' => 'action', 'isData' => false],
         ];
 
-        $teams = Team::search($this->search)
+        $labels = Label::search($this->search)
+            ->visibility($this->visibility)
             ->orderBy($this->sortColumn, $this->sortDirection)
             ->paginate(10);
 
-        return view('livewire.pages.dashboard.teams.teams', [
+        return view('livewire.pages.dashboard.labels.index', [
+            'filters' => [
+                [
+                    'name' => 'Visible',
+                    'value' => 1,
+                ],
+                [
+                    'name' => 'Not Visible',
+                    'value' => 0,
+                ],
+            ],
+            'colors' => Color::cases(),
             'columns' => $columns,
-            'teams' => $teams,
+            'labels' => $labels,
         ]);
     }
 }
