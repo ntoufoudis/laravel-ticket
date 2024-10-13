@@ -29,14 +29,6 @@ class Labels extends Component
     public string $visibility = '';
 
     /**
-     * Open Create Modal
-     */
-    public function openCreateModal(): void
-    {
-        $this->showCreateModal = false;
-    }
-
-    /**
      * Open Edit Modal
      */
     public function openEditModal(int $id): void

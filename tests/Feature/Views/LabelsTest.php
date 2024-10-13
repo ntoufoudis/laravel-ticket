@@ -27,6 +27,28 @@ it('can show edit modal', function () {
         ->assertSee($label->name);
 });
 
+it('can show visibility on update modal', function () {
+    $label = Label::factory()->create([
+        'name' => 'Test Label',
+        'is_visible' => true,
+    ]);
+
+    $label2 = Label::factory()->create([
+        'name' => 'Test Label 2',
+        'is_visible' => false,
+    ]);
+
+    Livewire::test('labels')
+        ->call('openEditModal', $label->id)
+        ->assertSet('state.is_visible', true)
+        ->assertNotSet('state.is_visible', false);
+
+    Livewire::test('labels')
+        ->call('openEditModal', $label2->id)
+        ->assertSet('state.is_visible', false)
+        ->assertNotSet('state.is_visible', true);
+});
+
 it('can show delete modal', function () {
     $label = Label::factory()->create();
 
@@ -93,9 +115,12 @@ it('can search labels', function () {
 it('can sort data', function () {
     $label1 = Label::factory()->create([
         'name' => 'Label 1',
+        'slug' => 'Label 1',
     ]);
+
     $label2 = Label::factory()->create([
         'name' => 'Label 2',
+        'slug' => 'Label 2',
     ]);
 
     $component = Livewire::test('labels');
@@ -111,18 +136,34 @@ it('can sort data', function () {
     $component
         ->assertHasNoErrors()
         ->assertSeeInOrder([$label2->name, $label1->name]);
+
+    $component
+        ->set('sortColumn', 'name')
+        ->set('sortDirection', 'asc')
+        ->call('doSort', 'name')
+        ->assertHasNoErrors()
+        ->assertSeeInOrder([$label1->name, $label2->name]);
+
+    $component
+        ->call('doSort', 'slug')
+        ->assertHasNoErrors()
+        ->assertSet('sortColumn', 'slug')
+        ->assertSet('sortDirection', 'ASC')
+        ->assertSeeInOrder([$label1->name, $label2->name]);
 });
 
 it('can create new label', function () {
-    $label = Label::factory()->create();
-
     Livewire::test('labels')
-        ->set('state', $label->toArray())
+        ->set('state.name', 'Label 1')
+        ->set('state.slug', 'label-1')
+        ->set('state.color', 'bg-gray-500')
         ->call('store')
-        ->assertSee($label->name);
+        ->assertSee('Label 1');
+
+    $this->assertEquals('label-1', Label::first()->slug);
 
     $this->assertDatabaseHas('labels', [
-        'name' => $label->name,
+        'name' => 'Label 1',
     ]);
 });
 
@@ -152,4 +193,18 @@ it('can delete label', function () {
         ->assertDontSee($label->name);
 
     $this->assertDatabaseMissing('labels', $label->toArray());
+});
+
+it('can initialize component with stored page', function () {
+    session()->put('page', 2);
+
+    Livewire::test('labels')
+        ->assertSet('page', 2);
+});
+
+it('can save current page to session', function () {
+    Livewire::test('labels')
+        ->set('page', 3);
+
+    $this->assertEquals(3, session('page'));
 });
