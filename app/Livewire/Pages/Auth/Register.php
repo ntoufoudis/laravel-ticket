@@ -4,6 +4,7 @@ namespace App\Livewire\Pages\Auth;
 
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
@@ -40,7 +41,7 @@ use Livewire\Component;
         $this->redirect(route('dashboard', absolute: false), navigate: true);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.pages.auth.register');
     }

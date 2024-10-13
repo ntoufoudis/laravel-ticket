@@ -71,4 +71,11 @@ class Ticket extends Model
     {
         $query->where('subject', 'like', '%'.$value.'%');
     }
+
+    public function scopeStatus($query, $value): void
+    {
+        if ($value === 'open' || $value === 'closed') {
+            $query->where('status', $value);
+        }
+    }
 }

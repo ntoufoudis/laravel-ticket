@@ -1,6 +1,6 @@
 @props(['search'])
 
-<div class="w-full md:w-56 pb-6">
+<div class="w-56">
     <label for="search" class="sr-only">Search</label>
     <div class="relative w-full">
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -19,13 +19,12 @@
                 />
             </svg>
         </div>
-        <input
-            wire:model.live.debounce.300ms="{{ $search }}"
-            type="text"
+        <x-text-input
+            wire:model.live.debounce="{{ $search }}"
             id="search"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 pl-10 p-2
-                    focus:border-blue-500 block w-full"
+            type="text"
+            class="pl-10 w-full"
             placeholder="Search"
-        >
+        />
     </div>
 </div>

@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages\Auth;
 
 use App\Livewire\Actions\Logout;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
@@ -36,7 +37,7 @@ use Livewire\Component;
         $this->redirect('/', navigate: true);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.pages.auth.verify-email');
     }

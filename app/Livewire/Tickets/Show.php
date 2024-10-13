@@ -8,7 +8,8 @@ use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('layouts.ticket')] class Show extends Component
+#[Layout('layouts.ticket')]
+class Show extends Component
 {
     public User $user;
     public Ticket $ticket;

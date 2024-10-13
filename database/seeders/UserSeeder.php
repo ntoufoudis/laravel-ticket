@@ -9,9 +9,17 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Vasileios Ntoufoudis',
-            'email' => 'info@ntoufoudis.com'
+            'email' => 'info@ntoufoudis.com',
         ]);
+
+        $user->assignRole('Super-Admin');
+
+        $users = User::factory(10)->create();
+
+        foreach ($users as $user) {
+            $user->assignRole('agent');
+        }
     }
 }

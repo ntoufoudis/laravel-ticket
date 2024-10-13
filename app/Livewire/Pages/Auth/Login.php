@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages\Auth;
 
 use App\Livewire\Forms\LoginForm;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -25,7 +26,7 @@ use Livewire\Component;
         $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.pages.auth.login');
     }

@@ -11,7 +11,8 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('layouts.app')] class Labels extends Component
+#[Layout('layouts.app')]
+class Labels extends Component
 {
     use WithPagination;
 

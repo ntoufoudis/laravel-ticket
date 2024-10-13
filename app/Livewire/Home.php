@@ -8,7 +8,8 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('layouts.app')] class Home extends Component
+#[Layout('layouts.app')]
+class Home extends Component
 {
     use WithPagination;
 
