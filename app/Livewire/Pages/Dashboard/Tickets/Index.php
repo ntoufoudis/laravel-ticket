@@ -11,7 +11,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 #[Layout('layouts.app')]
-class Tickets extends Component
+class Index extends Component
 {
     use WithPagination;
 
@@ -99,7 +99,7 @@ class Tickets extends Component
             ->orderBy($this->sortColumn, $this->sortDirection)
             ->paginate(10);
 
-        return view('livewire.pages.dashboard.tickets.tickets', [
+        return view('livewire.pages.dashboard.tickets.index', [
             'filters' => [
                 [
                     'name' => 'Open',

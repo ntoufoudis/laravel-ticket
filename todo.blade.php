@@ -22,15 +22,10 @@
 <!-- TODO: Implement AI model and train it to Generate FAQ, Knowledge Base Articles, Auto Assign Labels-->
 <!-- TODO: Give user option to create new ticket via Email -->
 <!-- TODO: Give Agents option to create internal notes -->
-<!-- TODO: Give Agents option to use predefined text like 'Hi' => 'Hello $name, thank you for contacting us.'        -->
+<!-- TODO: Give Agents option to use predefined text like 'Hi' => 'Hello $name, thank you for contacting us.' -->
 <!-- TODO: Setup SLAs -->
 <!-- TODO: Notify Admin if SLA is about to be breached -->
 <!-- TODO: Notify Admin if SLA is breached -->
 <!-- TODO: Create statistics and charts -->
 
-<!-- TEST: Categories Update Modal -->
-<!-- TEST: Categories Sort -->
-<!-- TEST: Categories Update Page -->
-<!-- TEST: Categories Store -->
-<!-- TEST: Categories Mount -->
-
+<!-- TODO: Add option to assign Agents to Teams -->

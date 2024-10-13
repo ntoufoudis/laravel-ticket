@@ -23,7 +23,7 @@
                 @endif
             @elseif ($column['column'] === 'action')
                 <div class="flex items-center gap-4 justify-start">
-                    <button wire:click="{{ $editModal }}({{$item->id}})" class="flex btn px-1 py-1 rounded-md  text-bg-yellow">
+                    <button @click="$dispatch({{ $editModal }}, { id: {{ $item->id }} })" class="flex btn px-1 py-1 rounded-md  text-bg-yellow">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -40,7 +40,7 @@
                     </button>
                     <button
                         wire:loading.attr="disabled"
-                        wire:click="{{ $confirmDeleteModal }}({{ $item->id }})"
+                        wire:click="$dispatch({{ $deleteModal }}, { id: {{ $item->id }} })"
                         class="flex text-bg-red"
                     >
                         <svg

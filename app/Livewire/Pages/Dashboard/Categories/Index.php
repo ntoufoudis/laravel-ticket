@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Pages\Dashboard\Categories;
 
-use App\Enums\Color;
-use App\Models\Label;
+use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -12,7 +11,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 #[Layout('layouts.app')]
-class Labels extends Component
+class Index extends Component
 {
     use WithPagination;
 
@@ -24,7 +23,7 @@ class Labels extends Component
     public bool $showCreateModal = false;
     public bool $showConfirmDeleteModal = false;
     public bool $updateMode = false;
-    public ?Label $label = null;
+    public ?Category $category = null;
     public array $state = [];
     public string $visibility = '';
 
@@ -35,11 +34,11 @@ class Labels extends Component
     {
         $this->updateMode = true;
 
-        $label = Label::find($id);
+        $category = Category::find($id);
 
-        $this->state = $label->toArray();
+        $this->state = $category->toArray();
 
-        if ($label->is_visible === 'Yes') {
+        if ($category->is_visible === 'Yes') {
             $this->state['is_visible'] = true;
         } else {
             $this->state['is_visible'] = false;
@@ -53,9 +52,9 @@ class Labels extends Component
      */
     public function confirmDelete(int $id): void
     {
-        $label = Label::find($id);
+        $category = Category::find($id);
 
-        $this->state = $label->toArray();
+        $this->state = $category->toArray();
 
         $this->showConfirmDeleteModal = true;
     }
@@ -103,77 +102,71 @@ class Labels extends Component
     }
 
     /**
-     * Handle creating new Label
+     * Handle creating new Category
      */
     public function store(): void
     {
         $validated = Validator::make($this->state, [
-            'name' => ['required', 'string', 'max:50', 'unique:'.Label::class],
-            'slug' => ['required', 'string', 'max:50', 'unique:'.Label::class],
-            'color' => ['required'],
+            'name' => ['required', 'string', 'max:50', 'unique:'.Category::class],
+            'slug' => ['required', 'string', 'max:50', 'unique:'.Category::class],
         ])->validate();
 
-        Label::create([
+        Category::create([
             'name' => $validated['name'],
             'slug' => $validated['slug'],
-            'color' => $validated['color'],
             'is_visible' => isset($this->state['is_visible']) ? 1 : 0,
         ]);
 
         $this->closeModals();
 
-        flash()->success('Label successfully added.');
+        flash()->success('Category successfully added.');
     }
 
     /**
-     * Handle updating a Label
+     * Handle updating a Category
      */
     public function edit(): void
     {
-        $label = Label::find($this->state['id']);
+        $category = Category::find($this->state['id']);
 
         $validated = Validator::make($this->state, [
             'name' => [
                 'required',
                 'string',
                 'max:50',
-                Rule::unique(Label::class, 'name')->ignore($label->id),
+                Rule::unique(Category::class, 'name')->ignore($category->id),
             ],
             'slug' => [
                 'required',
                 'string',
                 'max:50',
-                Rule::unique(Label::class, 'slug')->ignore($label->id),
-            ],
-            'color' => [
-                'required',
+                Rule::unique(Category::class, 'slug')->ignore($category->id),
             ],
         ])->validate();
 
-        $label->update([
+        $category->update([
             'name' => $validated['name'],
             'slug' => $validated['slug'],
-            'color' => $validated['color'],
             'is_visible' => $this->state['is_visible'],
         ]);
 
         $this->closeModals();
 
-        flash()->success('Label updated successfully.');
+        flash()->success('Category updated successfully.');
     }
 
     /**
-     * Handle Deleting a Label
+     * Handle Deleting a Category
      */
     public function delete(): void
     {
-        $label = Label::findOrFail($this->state['id']);
+        $category = Category::findOrFail($this->state['id']);
 
-        $label->delete();
+        $category->delete();
 
         $this->closeModals();
 
-        flash()->success('Label successfully deleted.');
+        flash()->success('Category successfully deleted.');
     }
 
     /**
@@ -196,17 +189,16 @@ class Labels extends Component
             ['label' => 'Name', 'column' => 'name', 'isData' => true],
             ['label' => 'Slug', 'column' => 'slug', 'isData' => true],
             ['label' => 'Visible', 'column' => 'is_visible', 'isData' => true],
-            ['label' => 'Color', 'column' => 'color', 'customClass' => 'bgColor', 'isData' => true],
 
             ['label' => 'Actions', 'column' => 'action', 'isData' => false],
         ];
 
-        $labels = Label::search($this->search)
+        $categories = Category::search($this->search)
             ->visibility($this->visibility)
             ->orderBy($this->sortColumn, $this->sortDirection)
             ->paginate(10);
 
-        return view('livewire.labels', [
+        return view('livewire.pages.dashboard.categories.index', [
             'filters' => [
                 [
                     'name' => 'Visible',
@@ -217,9 +209,8 @@ class Labels extends Component
                     'value' => 0,
                 ],
             ],
-            'colors' => Color::cases(),
             'columns' => $columns,
-            'labels' => $labels,
+            'categories' => $categories,
         ]);
     }
 }

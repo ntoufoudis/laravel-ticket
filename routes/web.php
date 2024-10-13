@@ -1,12 +1,12 @@
 <?php
 
-use App\Livewire\Categories;
-use App\Livewire\Home;
-use App\Livewire\Labels;
-use App\Livewire\Pages\Dashboard\Teams\Teams;
-use App\Livewire\Pages\Dashboard\Tickets\Tickets;
-use App\Livewire\Tickets\Show;
-use App\Livewire\Tickets\TicketForm;
+use App\Livewire\Pages\Dashboard\Categories\Index as CategoriesIndex;
+use App\Livewire\Pages\Dashboard\Labels\Index as LabelsIndex;
+use App\Livewire\Pages\Dashboard\Teams\Index as TeamsIndex;
+use App\Livewire\Pages\Dashboard\Tickets\Index as TicketsIndex;
+use App\Livewire\Pages\Frontend\Home;
+use App\Livewire\Pages\Frontend\Tickets\Show;
+use App\Livewire\Pages\Frontend\Tickets\TicketForm;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -23,10 +23,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', Home::class)->name('home');
     Route::prefix('dashboard')->group(function () {
         Route::view('/', 'dashboard')->name('dashboard');
-        Route::get('/tickets', Tickets::class)->name('tickets.index');
-        Route::get('/labels', Labels::class)->name('labels.index');
-        Route::get('/categories', Categories::class)->name('categories.index');
-        Route::get('/teams', Teams::class)->name('teams.index');
+        Route::get('/tickets', TicketsIndex::class)->name('tickets.index');
+        Route::get('/labels', LabelsIndex::class)->name('labels.index');
+        Route::get('/categories', CategoriesIndex::class)->name('categories.index');
+        Route::get('/teams', TeamsIndex::class)->name('teams.index');
     });
 });
 
