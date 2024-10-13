@@ -13,13 +13,6 @@
 ])
 
 <div class="w-full">
-    <div class="flex flex-col md:flex-row items-center justify-between md:space-x-4">
-        <x-table.search :search="$search" />
-        <x-table.add-new :create-modal="$createModal" />
-        @if(isset($filters))
-            <x-table.filter :filters="$filters" :visibility="$visibility" />
-        @endif
-    </div>
     <div class="overflow-x-auto">
         <table class="w-full text-sm text-left text-gray-500">
             <x-table.table-head
@@ -37,6 +30,6 @@
         </table>
     </div>
     <div class="pt-6">
-        {{ $items->links('components.table.pagination') }}
+        {{ $items->links() }}
     </div>
 </div>

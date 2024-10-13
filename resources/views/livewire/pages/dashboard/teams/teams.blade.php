@@ -5,7 +5,7 @@
         <!-- Title -->
         <div class="mb-4 sm:mb-0">
             <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
-                Categories
+                Teams
             </h1>
         </div>
 
@@ -14,23 +14,20 @@
             <!-- Search -->
             <x-search search="search" />
 
-            <!-- Filters -->
-            <x-filters model="visibility" :filters="$filters" />
-
             <!-- Add New Button -->
-            <x-create-button modal="'showCreateModal'" label="Add new Label" />
+            <x-create-button modal="'showCreateModal'" label="Add new Team" />
         </div>
     </div>
 
     <div class="grid grid-cols-23 gap-6">
         <x-table.table
-            :columns="$columns"
-            :page="$page"
-            :items="$categories"
-            :sortColumn="$sortColumn"
-            :sortDirection="$sortDirection"
-            edit-modal="openEditModal"
-            delete-modal="confirmDelete"
+                :columns="$columns"
+                :page="$page"
+                :items="$teams"
+                :sortColumn="$sortColumn"
+                :sortDirection="$sortDirection"
+                edit-modal="openEditModal"
+                delete-modal="confirmDelete"
         />
     </div>
 </div>

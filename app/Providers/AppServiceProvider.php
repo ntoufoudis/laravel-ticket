@@ -22,8 +22,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Paginator::defaultView('components.table.pagination');
-
         Blade::directive('livewireRecaptcha', static fn (string $expression
         ): string => "<?php echo \App\Livewire\Recaptcha\Recaptcha::directive($expression) ?>",
         );

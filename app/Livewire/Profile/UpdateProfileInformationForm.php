@@ -3,6 +3,7 @@
 namespace App\Livewire\Profile;
 
 use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -45,7 +46,7 @@ class UpdateProfileInformationForm extends Component
         $this->dispatch('profile-updated', name: $user->name);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.profile.update-profile-information-form');
     }

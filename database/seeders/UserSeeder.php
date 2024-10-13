@@ -15,5 +15,11 @@ class UserSeeder extends Seeder
         ]);
 
         $user->assignRole('Super-Admin');
+
+        $users = User::factory(10)->create();
+
+        foreach ($users as $user) {
+            $user->assignRole('agent');
+        }
     }
 }

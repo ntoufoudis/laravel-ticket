@@ -3,6 +3,8 @@
 use App\Livewire\Categories;
 use App\Livewire\Home;
 use App\Livewire\Labels;
+use App\Livewire\Pages\Dashboard\Teams\Teams;
+use App\Livewire\Pages\Dashboard\Tickets\Tickets;
 use App\Livewire\Tickets\Show;
 use App\Livewire\Tickets\TicketForm;
 use Illuminate\Support\Facades\Route;
@@ -21,8 +23,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', Home::class)->name('home');
     Route::prefix('dashboard')->group(function () {
         Route::view('/', 'dashboard')->name('dashboard');
+        Route::get('/tickets', Tickets::class)->name('tickets.index');
         Route::get('/labels', Labels::class)->name('labels.index');
-        Route::get('/categories', Categories::class)->name('labels.index');
+        Route::get('/categories', Categories::class)->name('categories.index');
+        Route::get('/teams', Teams::class)->name('teams.index');
     });
 });
 

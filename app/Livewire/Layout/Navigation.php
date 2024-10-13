@@ -3,6 +3,7 @@
 namespace App\Livewire\Layout;
 
 use App\Livewire\Actions\Logout;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class Navigation extends Component
@@ -17,7 +18,7 @@ class Navigation extends Component
         $this->redirect('/', navigate: true);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.layout.navigation');
     }

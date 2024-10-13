@@ -1,29 +1,25 @@
 <?php
 
-namespace App\Livewire\Tickets;
+namespace App\Livewire\Pages\Dashboard\Tickets;
 
 use App\Models\Ticket;
-use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('layouts.ticket')]
-class Show extends Component
+#[Layout('layouts.app')]
+class Edit extends Component
 {
-    public User $user;
     public Ticket $ticket;
 
     public function mount($id): void
     {
-        $this->user = auth()->user();
         $this->ticket = Ticket::find($id);
     }
 
-
     public function render(): View
     {
-        return view('livewire.tickets.show', [
+        return view('livewire.pages.dashboard.tickets.edit', [
             'ticket' => $this->ticket,
         ]);
     }

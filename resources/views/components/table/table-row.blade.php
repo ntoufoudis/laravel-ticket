@@ -10,12 +10,16 @@
             @if ($column['isData'])
                 @if(isset($column['customClass']))
                     @if($column['customClass'] === 'bgColor')
-                        <p class="{!! $item->{$column['column']} !!} p-2 rounded-md text-white w-28 text-center">
+                        <p class="{!! $item->{$column['column']} !!} p-1 rounded-md text-white w-28 text-center">
                             {{ $item->name }}
                         </p>
                     @endif
                 @else
-                    {{ $item->{$column['column']} }}
+                    @if(isset($column['column2']))
+                        {{ $item->{$column['column']}->{$column['column2']} }}
+                    @else
+                        {{ $item->{$column['column']} }}
+                    @endif
                 @endif
             @elseif ($column['column'] === 'action')
                 <div class="flex items-center gap-4 justify-start">

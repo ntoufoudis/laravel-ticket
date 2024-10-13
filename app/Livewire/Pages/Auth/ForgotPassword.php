@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Auth;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Password;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -34,7 +35,7 @@ use Livewire\Component;
         session()->flash('status', __($status));
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.pages.auth.forgot-password');
     }

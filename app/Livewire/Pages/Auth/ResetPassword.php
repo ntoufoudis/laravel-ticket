@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages\Auth;
 
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Session;
@@ -67,7 +68,7 @@ use Livewire\Component;
         $this->redirectRoute('login', navigate: true);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.pages.auth.reset-password');
     }
