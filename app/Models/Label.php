@@ -6,6 +6,7 @@ use App\Traits\HasVisibility;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Label extends Model
 {
@@ -19,45 +20,19 @@ class Label extends Model
     protected $guarded = [];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Get Tickets Relationship
      */
-    protected function casts(): array
+    public function tickets(): HasMany
     {
-        return [
-            'is_visible' => 'string',
-        ];
-    }
-
-    public function getIsVisibleAttribute($value): string
-    {
-        $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
-        if ($value == '') {
-            return 'No';
-        }
-
-        return 'Yes';
+        return $this->HasMany(Ticket::class);
     }
 
     /**
-     * Get Tickets Relationship
+     * Search Scope
      */
-    public function tickets(): BelongsToMany
-    {
-        return $this->belongsToMany(Ticket::class);
-    }
-
     public function scopeSearch($query, $value): void
     {
         $query->where('name', 'like', '%'.$value.'%')
             ->orWhere('slug', 'like', '%'.$value.'%');
-    }
-
-    public function scopeVisibility($query, $value): void
-    {
-        if ($value == 1 || $value == 0) {
-            $query->where('is_visible', $value);
-        }
     }
 }

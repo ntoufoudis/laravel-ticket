@@ -16,23 +16,6 @@ class Index extends Component
 
     public $page = 1;
     public $search = '';
-    public $sortDirection = 'ASC';
-    public $sortColumn = 'id';
-
-    /**
-     * Toggle sort direction when column header is clicked.
-     */
-    public function doSort(string $column): void
-    {
-        if ($this->sortColumn === $column) {
-            $this->sortDirection = ($this->sortDirection === 'ASC') ? 'DESC' : 'ASC';
-
-            return;
-        }
-
-        $this->sortColumn = $column;
-        $this->sortDirection = 'ASC';
-    }
 
     /**
      * Store the current page when updating.
@@ -74,20 +57,11 @@ class Index extends Component
      */
     public function render(): View
     {
-        $columns = [
-            ['label' => 'Id', 'column' => 'id', 'isData' => true],
-            ['label' => 'Name', 'column' => 'name', 'isData' => true],
-            ['label' => 'Description', 'column' => 'description', 'isData' => true],
-
-            ['label' => 'Actions', 'column' => 'action', 'isData' => false],
-        ];
-
         $teams = Team::search($this->search)
-            ->orderBy($this->sortColumn, $this->sortDirection)
+            ->orderBy('id')
             ->paginate(10);
 
         return view('livewire.pages.dashboard.teams.index', [
-            'columns' => $columns,
             'teams' => $teams,
         ]);
     }

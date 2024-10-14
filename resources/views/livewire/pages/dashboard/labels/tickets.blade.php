@@ -5,7 +5,7 @@
         <!-- Title -->
         <div class="mb-4 sm:mb-0">
             <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
-                Tickets
+                Tickets from Label {{ $label->name }}
             </h1>
         </div>
         <!-- Actions -->
@@ -21,7 +21,6 @@
                 <x-table.datatable-column column="id" />
                 <x-table.datatable-column column="subject" />
                 <x-table.datatable-column column="category" />
-                <x-table.datatable-column column="label" />
                 <x-table.datatable-column column="priority" />
                 <x-table.datatable-column column="status" />
                 <x-table.datatable-column column="assigned_to" />
@@ -32,9 +31,8 @@
                         <x-table.table-row :item="$ticket->id" type="data" />
                         <x-table.table-row :item="$ticket->subject" type="data" />
                         <x-table.table-row :item="$ticket->category->name" type="data" />
-                        <x-table.table-row :item="$ticket->label->name" type="data" />
-                        <x-table.table-row :item="$ticket->priority" type="data" />
-                        <x-table.table-row :item="$ticket->status" type="data" />
+                        <x-table.table-row :item="$ticket->priority" type="data" class="capitalize" />
+                        <x-table.table-row :item="$ticket->status" type="data" class="capitalize" />
                         <x-table.table-row :item="$ticket->assigned_to" type="data" />
                     </tr>
                 @endforeach

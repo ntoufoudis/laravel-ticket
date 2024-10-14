@@ -8,7 +8,6 @@ use App\Traits\TicketScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Ticket extends Model
@@ -57,14 +56,9 @@ class Ticket extends Model
     /**
      * Get Labels Relationship
      */
-    public function labels(): BelongsToMany
+    public function label(): BelongsTo
     {
-        return $this->belongsToMany(
-            Label::class,
-            'label_ticket',
-            'ticket_id',
-            'label_id'
-        );
+        return $this->BelongsTo(Label::class);
     }
 
     public function scopeSearch($query, $value): void
@@ -78,4 +72,11 @@ class Ticket extends Model
             $query->where('status', $value);
         }
     }
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['category', 'label'];
 }

@@ -1,37 +1,23 @@
-<div class="flex items-center cursor-pointer">
-    {{ $columnName }}
+@props(['sort', 'column', 'sortAsc', 'sortable'])
+@if(isset($sortable))
+    <th
+        wire:click="{{$sort}}('{{$column}}')"
+        scope="col"
+        class="px-4 py-3 cursor-pointer"
+    >
+        <div class="flex items-center h-6">
+            {{ $column }}
 
-    @if ($sortDirection === 'ASC')
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-chevron-down"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M6 9l6 6l6 -6" />
-        </svg>
-    @else
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-sm icon-thick"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M6 15l6 -6l6 6" />
-        </svg>
-    @endif
-</div>
+            @if ($sortAsc === true)
+                <iconify-icon icon="mdi:chevron-down" width="24"></iconify-icon>
+            @else
+                <iconify-icon icon="mdi:chevron-up" width="24"></iconify-icon>
+            @endif
+        </div>
+
+    </th>
+@else
+    <th scope="col" class="px-4 py-3">
+        {{ $column }}
+    </th>
+@endif

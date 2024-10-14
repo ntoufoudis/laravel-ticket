@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -16,10 +17,11 @@ class UserSeeder extends Seeder
 
         $user->assignRole('Super-Admin');
 
-        $users = User::factory(10)->create();
+        $users = User::factory(50)->create();
 
         foreach ($users as $user) {
             $user->assignRole('agent');
+            $user->team()->associate(rand(1, 3))->save();
         }
     }
 }

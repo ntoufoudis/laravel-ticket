@@ -16,7 +16,6 @@ class CategoryFactory extends Factory
         return [
             'name' => $name = $this->faker->unique()->words(2, true),
             'slug' => Str::slug($name),
-            'is_visible' => $this->faker->boolean(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];

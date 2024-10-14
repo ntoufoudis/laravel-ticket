@@ -30,7 +30,6 @@
                             class="block mt-1 w-full"
                             placeholder="Type team description"
                             required
-                            autofocus
                         />
                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                     </div>
