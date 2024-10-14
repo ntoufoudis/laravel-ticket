@@ -27,15 +27,6 @@
             <!-- Header: Right Side -->
             <div class="flex items-center space-x-3">
 
-                <!-- Search Button with Modal -->
-                <x-modal-search />
-
-                <!-- Notifications Button -->
-                <x-dropdown-notifications align="right" />
-
-                <!-- Info Button -->
-                <x-dropdown-help align="right" />
-
                 <!-- Dark Mode Toggle -->
                 <x-theme-toggle />
 

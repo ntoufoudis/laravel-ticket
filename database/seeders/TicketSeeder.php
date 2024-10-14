@@ -18,6 +18,10 @@ class TicketSeeder extends Seeder
             Ticket::factory(rand(5, 15))->create([
                 'category_id' => $category->id,
             ]);
+            Ticket::factory(rand(1, 5))->create([
+                'category_id' => $category->id,
+                'user_id' => 2,
+            ]);
         }
 
         foreach (Ticket::all() as $ticket) {

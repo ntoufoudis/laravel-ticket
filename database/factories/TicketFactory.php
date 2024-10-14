@@ -16,7 +16,6 @@ class TicketFactory extends Factory
         return [
             'uuid' => $this->faker->uuid(),
             'subject' => $this->faker->words(3, true),
-            'message' => $this->faker->realText(),
             'priority' => $this->faker->randomElement(['low', 'normal', 'high']),
             'status' => $this->faker->randomElement(['open', 'closed']),
             'is_resolved' => $this->faker->boolean(),
