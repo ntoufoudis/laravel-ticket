@@ -19,6 +19,6 @@ class TicketForm extends Form
     #[Validate('required|string')]
     public string $category = '';
 
-    #[Validate(['attachments.*' => 'required|file|mimes:png,jpg,jpeg,pdf,doc,docx|max:10240'])]
+    #[Validate(['attachments.*' => 'file|mimes:png,jpg,jpeg,pdf,doc,docx|max:10240'])]
     public array $attachments = [];
 }

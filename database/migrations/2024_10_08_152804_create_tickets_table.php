@@ -20,12 +20,10 @@ return new class extends Migration
             $table->unsignedBigInteger('assigned_to')->nullable();
             $table->foreign('assigned_to')->references('id')->on('users');
             $table->string('subject');
-            $table->string('message')->nullable();
             $table->string('priority')->default('low');
             $table->string('status')->default('open');
             $table->boolean('is_resolved')->default(false);
             $table->boolean('is_locked')->default(false);
-            $table->integer('pin')->default(0000);
             $table->timestamps();
         });
     }

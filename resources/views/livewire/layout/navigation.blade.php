@@ -48,7 +48,6 @@
                 x-on:profile-updated.window="role = $event.detail.role"
                 class="text-xs text-gray-500 dark:text-gray-400 italic"
             >
-                Administrator
             </div>
         </div>
         <ul>

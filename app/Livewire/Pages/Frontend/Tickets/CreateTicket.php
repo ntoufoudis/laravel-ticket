@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Pages\Frontend\Tickets;
 
-use App\Livewire\Forms\TicketForm as Form;
+use App\Livewire\Forms\TicketForm;
 use App\Livewire\Recaptcha\ValidatesRecaptcha;
 use App\Mail\TicketCreated;
 use App\Models\Attachment;
@@ -17,16 +17,13 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-#[Layout('layouts.ticket')] class TicketForm extends Component
+#[Layout('layouts.ticket')]
+class CreateTicket extends Component
 {
     use WithFileUploads;
 
-    public Form $ticket;
-
-    public array $photos = [];
-
+    public TicketForm $ticket;
     public string $gRecaptchaResponse;
-
     public User $user;
 
     public function mount(): void
@@ -49,9 +46,7 @@ use Livewire\WithFileUploads;
             'user_id' => $this->user->id,
             'category_id' => $data['category'],
             'subject' => $data['subject'],
-            'message' => $data['description'],
             'priority' => $data['priority'],
-            'pin' => rand(0001, 9999),
         ]);
 
         Message::create([
@@ -76,14 +71,14 @@ use Livewire\WithFileUploads;
         }
 
         flash()->success('Ticket created.');
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $this->redirectIntended(default: route('home', absolute: false), navigate: true);
 
         Mail::to($this->user->email)->send(new TicketCreated($ticket));
     }
 
     public function render(): View
     {
-        return view('livewire.pages.frontend.tickets.ticket-form', [
+        return view('livewire.pages.frontend.tickets.create-ticket', [
             'categories' => Category::all(),
         ]);
     }
