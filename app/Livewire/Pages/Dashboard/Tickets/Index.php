@@ -5,6 +5,7 @@ namespace App\Livewire\Pages\Dashboard\Tickets;
 use App\Models\Ticket;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,6 +15,15 @@ class Index extends Component
     use WithPagination;
 
     public string $search = '';
+
+    /**
+     * Refresh Component
+     */
+    #[On('force-refresh')]
+    public function refresh(): void
+    {
+        $this->resetPage();
+    }
 
     public function render(): View
     {

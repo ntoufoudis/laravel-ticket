@@ -1,5 +1,4 @@
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-
     <!-- Header -->
     <div class="sm:flex sm:justify-between sm:items-center mb-8">
         <!-- Title -->
@@ -24,21 +23,37 @@
                 <x-table.datatable-column column="label" />
                 <x-table.datatable-column column="priority" />
                 <x-table.datatable-column column="status" />
-                <x-table.datatable-column column="assigned_to" />
+                <x-table.datatable-column column="assigned to" />
+                <th scope="col" class="px-4 py-3">Actions</th>
             </x-table.table-head>
-            <x-table.table-body :items="$tickets" columns="5">
+            <x-table.table-body :items="$tickets" columns="7">
                 @foreach($tickets as $key => $ticket)
                     <tr wire:key="{{ $key }}" class="border-b">
                         <x-table.table-row :item="$ticket->id" type="data" />
                         <x-table.table-row :item="$ticket->subject" type="data" />
                         <x-table.table-row :item="$ticket->category->name" type="data" />
-                        <x-table.table-row :item="$ticket->label->name" type="data" />
-                        <x-table.table-row :item="$ticket->priority" type="data" />
-                        <x-table.table-row :item="$ticket->status" type="data" />
-                        <x-table.table-row :item="$ticket->assigned_to" type="data" />
+                        @if(isset($ticket->label))
+                            <x-table.table-row :item="$ticket->label->name" type="data" />
+                        @else
+                            <x-table.table-row item="" type="data" />
+                        @endif
+                        <x-table.table-row :item="$ticket->priority" type="data" class="capitalize" />
+                        <x-table.table-row :item="$ticket->status" type="data" class="capitalize" />
+                        @if(isset($ticket->assigned_to))
+                            <x-table.table-row :item="$ticket->assignedToUser->name" type="data" />
+                        @else
+                            <x-table.table-row item="" type="data" />
+                        @endif
+                        <x-table.table-row
+                            :item="$ticket->id"
+                            type="action"
+                            edit="'show-assign-modal'"
+                            delete=""
+                        />
                     </tr>
                 @endforeach
             </x-table.table-body>
         </x-table.table>
     </div>
+    <livewire:pages.dashboard.tickets.assign-agent-modal />
 </div>

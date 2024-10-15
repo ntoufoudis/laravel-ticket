@@ -71,5 +71,5 @@ class Ticket extends Model
      *
      * @var array<int, string>
      */
-    protected $with = ['category', 'label', 'messages'];
+    protected $with = ['category', 'label', 'messages', 'assignedToUser'];
 }

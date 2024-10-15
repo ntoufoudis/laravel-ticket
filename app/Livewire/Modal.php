@@ -10,6 +10,7 @@ class Modal extends Component
     public bool $showCreate = false;
     public bool $showEdit = false;
     public bool $showDelete = false;
+    public bool $showAssign = false;
     public int $id;
 
     #[On('show-create-modal')]
@@ -32,11 +33,19 @@ class Modal extends Component
         $this->dispatch('open-delete');
     }
 
+    #[On('show-assign-modal')]
+    public function showAssign(int $id): void
+    {
+        $this->id = $id;
+        $this->dispatch('open-assign');
+    }
+
     #[On('close-modal')]
     public function close(): void
     {
         $this->showCreate = false;
         $this->showEdit = false;
         $this->showDelete = false;
+        $this->showAssign = false;
     }
 }
