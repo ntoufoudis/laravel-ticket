@@ -19,14 +19,14 @@ class Modal extends Component
     }
 
     #[On('show-edit-modal')]
-    public function showEdit($id): void
+    public function showEdit(int $id): void
     {
         $this->id = $id;
         $this->dispatch('open-edit');
     }
 
     #[On('show-delete-modal')]
-    public function showDelete($id): void
+    public function showDelete(int $id): void
     {
         $this->id = $id;
         $this->dispatch('open-delete');

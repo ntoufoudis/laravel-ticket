@@ -1,23 +1,23 @@
-@props(['entangle'])
-
-@push('head')
-@endpush
 <div
+    x-data="{
+        value: @entangle($attributes->wire('model')),
+         isFocused() { return document.activeElement !== this.$refs.trix },
+         setValue() {
+            if (this.$refs.trix && this.$refs.trix.editor) {
+                this.$refs.trix.editor.loadHTML(this.value);
+            }
+         },}"
+    x-init="setValue();
+        $watch('value', () => isFocused() && setValue())"
+    x-on:trix-change="value = $event.target.value"
+    x-on:trix-initialize="setValue()"
+    {{ $attributes->whereDoesntStartWith('wire:model') }}
     wire:ignore
-    x-data="{ value: @entangle($entangle) }"
-    x-id="['trix']"
-    @trix-change="value = $refs.input.value"
-    @trix-file-accept.prevent
-    class="w-full"
+    {{ $attributes->merge(['class' => 'mt-1 rounded-md']) }}
 >
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.1.6/dist/trix.css">
-    <script type="text/javascript" src="https://unpkg.com/trix@2.1.6/dist/trix.umd.min.js"></script>
-
-    <input x-ref="input" type="hidden" :id="$id('trix')">
-
-    <trix-editor x-ref="trix" :input="$id('trix')" class="rounded-xl"></trix-editor>
+    <input id="x" type="hidden">
+    <trix-editor x-ref="trix" input="x"></trix-editor>
 </div>
-
 <style>
     [data-trix-button-group="file-tools"] {
         display: none !important;
