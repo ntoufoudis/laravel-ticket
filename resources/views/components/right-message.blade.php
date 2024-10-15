@@ -2,7 +2,7 @@
 
 <div class="flex items-start justify-end gap-2.5">
     <div
-        class="flex flex-col w-full max-w-[320px] leading-1.5 p-4 border-gray-200 bg-indigo-300 rounded-s-xl
+        class="flex flex-col w-full max-w-[500px] leading-1.5 p-4 border-gray-200 bg-indigo-300 rounded-s-xl
             rounded-ee-xl dark:bg-gray-700"
     >
         <div class="flex items-center space-x-2 rtl:space-x-reverse">
