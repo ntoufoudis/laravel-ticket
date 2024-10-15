@@ -1,6 +1,3 @@
-<!-- TODO: User can see attachments #61 -->
-<!-- TODO: User can upload more attachments #62 -->
-
 <!-- TODO: Create Ticket Show Page for Agent #65 -->
 <!-- TODO: Agent can reply to ticket #66 -->
 <!-- TODO: Agent can change ticket label #67 -->
@@ -13,6 +10,9 @@
 <!-- TODO: Apply Roles & Permissions Checks #74 -->
 <!-- TODO: Assign Ticket to Agent #75 -->
 <!-- TODO: Add/Remove Agent To Team #76 -->
+
+
+
 
 
 
