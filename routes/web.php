@@ -20,8 +20,9 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/tickets/new', CreateTicket::class)->name('tickets.create');
-    Route::get('/ticket/{id}', Show::class)->name('tickets.show');
+    Route::get('/tickets/{id}', Show::class)->name('tickets.show');
     Route::get('/', Home::class)->name('home');
+
     Route::prefix('dashboard')->group(function () {
         Route::view('/', 'dashboard')->name('dashboard');
         Route::get('/tickets', TicketsIndex::class)->name('tickets.index');

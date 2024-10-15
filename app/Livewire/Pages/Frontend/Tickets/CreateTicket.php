@@ -17,7 +17,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-#[Layout('layouts.ticket')]
+#[Layout('layouts.frontend')]
 class CreateTicket extends Component
 {
     use WithFileUploads;
