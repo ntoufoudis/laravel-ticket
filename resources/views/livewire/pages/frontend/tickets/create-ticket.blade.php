@@ -1,5 +1,5 @@
-<div>
-    <form wire:submit="store" wire:recaptcha class="grid grid-cols-2 gap-4">
+<div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+<form wire:submit="store" wire:recaptcha class="grid grid-cols-2 gap-4">
         <!-- Name -->
         <div class="col-span-2 sm:col-span-1">
             <x-breeze.input-label for="name" :value="__('Name')" />
@@ -104,10 +104,11 @@
         <div class="flex items-center justify-end mt-4 col-span-2">
 
             <x-breeze.primary-button class="ms-3">
-                {{ __('Create Ticker') }}
+                {{ __('Create Ticket') }}
             </x-breeze.primary-button>
-            <x-breeze.secondary-button class="ms-3">
-                {{ __('Reset') }}
+            <x-breeze.secondary-button class="ms-3" wire:click="back">
+
+                {{ __('Back') }}
             </x-breeze.secondary-button>
         </div>
     </form>

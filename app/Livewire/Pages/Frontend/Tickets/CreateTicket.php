@@ -76,6 +76,11 @@ class CreateTicket extends Component
         Mail::to($this->user->email)->send(new TicketCreated($ticket));
     }
 
+    public function back(): void
+    {
+        $this->redirectIntended(default: route('home', absolute: false), navigate: true);
+    }
+
     public function render(): View
     {
         return view('livewire.pages.frontend.tickets.create-ticket', [

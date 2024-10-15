@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-4 max-h-[500px] overflow-auto px-4">
         @foreach($ticket->messages as $message)
             @if($message->user_id === auth()->user()->id)
                 <x-right-message :name="auth()->user()->name" :message="$message" />
@@ -21,13 +21,12 @@
                 />
             @endif
         @endforeach
-        <div class="pt-8">
-            <x-trix-editor entangle="message" />
-        </div>
-        <div>
-            <x-primary-button wire:click="send">Send</x-primary-button>
-        </div>
-
+    </div>
+    <div class="mt-8">
+        <x-trix-editor entangle="message" />
+    </div>
+    <div class="mt-4">
+        <x-primary-button wire:click="send">Send</x-primary-button>
     </div>
 </div>
 

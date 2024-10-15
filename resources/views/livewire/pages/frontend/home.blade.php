@@ -40,7 +40,11 @@
                 @foreach($tickets as $key => $ticket)
                     <tr wire:key="{{ $key }}" class="border-b">
                         <x-table.table-row :item="$ticket->id" type="data" />
-                        <x-table.table-row :item="$ticket->subject" type="data" />
+                        <x-table.table-row
+                            :item="$ticket->subject"
+                            type="data"
+                            link="{{  route('tickets.show', $ticket->id) }}"
+                        />
                         <x-table.table-row :item="$ticket->category->name" type="data" />
                         <x-table.table-row :item="$ticket->priority" type="data" class="capitalize" />
                         <x-table.table-row :item="$ticket->status" type="data" class="capitalize" />

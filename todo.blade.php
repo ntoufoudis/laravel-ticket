@@ -1,7 +1,5 @@
-<!-- TODO: Create Ticket Show Page for User #60 -->
 <!-- TODO: User can see attachments #61 -->
 <!-- TODO: User can upload more attachments #62 -->
-<!-- TODO: User can reply to ticket #63 -->
 
 <!-- TODO: Create Ticket Show Page for Agent #65 -->
 <!-- TODO: Agent can reply to ticket #66 -->
