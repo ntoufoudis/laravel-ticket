@@ -16,7 +16,6 @@
             <p>Your ticket with subject: <strong>{{ $ticketSubject }}</strong> has been created</p>
             <p>You can access it via your profile, or directly at this URL:</p>
             <p>http://localhost:8000/{{ $ticketID }}</p>
-            <p>The PIN Code is: <strong>{{ $ticketPin }}</strong></p>
             <p>Please do not reply to this email.</p>
         </div>
     </body>

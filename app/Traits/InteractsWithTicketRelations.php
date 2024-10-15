@@ -10,34 +10,34 @@ trait InteractsWithTicketRelations
     /**
      * Associate Labels into an existing ticket
      */
-    public function attachLabels(mixed $id, array $attributes = [], bool $touch = true): void
-    {
-        $this->labels()->attach($id, $attributes, $touch);
-    }
+//    public function attachLabels(mixed $id, array $attributes = [], bool $touch = true): void
+//    {
+//        $this->labels()->attach($id, $attributes, $touch);
+//    }
 
     /**
      * Sync the intermediate tables with a list of IDs or collection of the ticket model
      */
-    public function syncLabels(Model|array|Collection $ids, bool $detaching = true): array
-    {
-        return $this->labels()->sync($ids, $detaching);
-    }
+//    public function syncLabels(Model|array|Collection $ids, bool $detaching = true): array
+//    {
+//        return $this->labels()->sync($ids, $detaching);
+//    }
 
     /**
      * Associate Category into an existing ticket
      */
-    public function attachCategory(mixed $id, array $attributes = [], bool $touch = true): void
-    {
-        $this->categories()->attach($id, $attributes, $touch);
-    }
+//    public function attachCategory(mixed $id, array $attributes = [], bool $touch = true): void
+//    {
+//        $this->categories()->attach($id, $attributes, $touch);
+//    }
 
     /**
      * Sync the intermediate tables with a list of IDs or collection of the ticket model
      */
-    public function syncCategories(Model|array|Collection $ids, bool $detaching = true): array
-    {
-        return $this->categories()->sync($ids, $detaching);
-    }
+//    public function syncCategories(Model|array|Collection $ids, bool $detaching = true): array
+//    {
+//        return $this->categories()->sync($ids, $detaching);
+//    }
 
     /**
      * Add new message on an existing ticket
