@@ -3,8 +3,6 @@
 <!-- TODO: User can upload more attachments #62 -->
 <!-- TODO: User can reply to ticket #63 -->
 
-<!-- TODO: Create Home Page #64 -->
-
 <!-- TODO: Create Ticket Show Page for Agent #65 -->
 <!-- TODO: Agent can reply to ticket #66 -->
 <!-- TODO: Agent can change ticket label #67 -->
